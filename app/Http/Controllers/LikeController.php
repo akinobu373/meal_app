@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Auth;
 
 class LikeController extends Controller
 {
-    public function like(Post $post, Request $request)
+    public function store(Post $post, Request $request)
     {
         $like = new Like();
         $like->post_id = $post->id;
@@ -18,10 +18,10 @@ class LikeController extends Controller
         return back();
     }
 
-    public function unlike(Post $post, Request $request)
+    public function delite(Post $post, Request $request)
     {
-        $user = Auth::user()->id;
-        $like = Like::where('post_id', $post->id)->where('user_id', $user)->first();
+        $user_id = Auth::user()->id;
+        $like = Like::where('post_id', $post->id)->where('user_id', $user_id)->first();
         $like->delete();
 
         return back();

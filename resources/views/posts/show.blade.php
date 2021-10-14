@@ -23,14 +23,14 @@
 
                 @if (Auth::check())
                 @if ($like)
-                <a href="{{ route('unlike', $post) }}"onclick="$(this).click(function(e){ return false });">
+                <a href="{{ route('destory', $post) }}"onclick="$(this).click(function(e){ return false });">
                     <x-action-button type="submit" color="pink" text="お気に入り削除" /><br>
                 </a>
                 <b>お気に入り数:</b>
                 <b>{{ $post->likes->count() }}</b>
                 @else
 
-                <a href="{{ route('like', $post) }}"onclick="$(this).click(function(e){ return false });" class="btn btn-secondary btn-sm">
+                <a href="{{ route('store', $post) }}"onclick="$(this).click(function(e){ return false });" class="btn btn-secondary btn-sm">
                     <x-action-button type="button" color="blue" text="お気に入り" /><br>
                 </a>
                 <b>お気に入り数:</b>
