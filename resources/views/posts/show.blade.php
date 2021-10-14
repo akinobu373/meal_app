@@ -1,4 +1,3 @@
-
 <x-app-layout>
     <div class="container lg:w-3/4 md:w-4/5 w-11/12 mx-auto my-8 px-8 py-4 bg-white shadow-md">
 
@@ -21,23 +20,24 @@
             <img src="{{ $post->image_url }}" alt="" class="mb-4 mx-auto">
             <p class="text-gray-700 text-base break-words">{!! nl2br(e($post->body)) !!}</p>
 
-                @if (Auth::check())
-                @if ($like)
-                <a href="{{ route('destory', $post) }}"onclick="$(this).click(function(e){ return false });">
-                    <x-action-button type="submit" color="pink" text="お気に入り削除" /><br>
-                </a>
-                <b>お気に入り数:</b>
-                <b>{{ $post->likes->count() }}</b>
-                @else
-
-                <a href="{{ route('store', $post) }}"onclick="$(this).click(function(e){ return false });" class="btn btn-secondary btn-sm">
-                    <x-action-button type="button" color="blue" text="お気に入り" /><br>
-                </a>
-                <b>お気に入り数:</b>
-                <b>{{ $post->likes->count() }}</b>
-
-                @endif
-                @endif
+            @if (Auth::check())
+            @if ($like)
+            <form action="{{ route('posts.likes.destroy', [$post, $like]) }}" method="POST" class="mt-2">
+                @csrf
+                @method('DELETE')
+                <x-action-button type="submit" color="pink" text="お気に入り削除" />
+            </form>
+            <b>お気に入り数:</b>
+            <b>{{ $post->likes->count() }}</b>
+            @else
+            <form action="{{ route('posts.likes.store', $post) }}" method="POST" class="mt-2">
+                @csrf
+                <x-action-button type="submit" color="blue" text="お気に入り" />
+            </form>
+            <b>お気に入り数:</b>
+            <b>{{ $post->likes->count() }}</b>
+            @endif
+            @endif
 
             <div class="flex flex-row text-center my-4">
                 @can('update', $post)
@@ -55,5 +55,4 @@
             </div>
         </article>
     </div>
-
 </x-app-layout>
